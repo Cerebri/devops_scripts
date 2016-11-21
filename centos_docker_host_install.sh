@@ -50,7 +50,7 @@ tee /etc/docker/daemon.json <<-'EOF'
      "dm.thinpooldev=/dev/mapper/docker-thinpool",
      "dm.use_deferred_removal=true",
      "dm.use_deferred_deletion=true",
-     "dm.basesize=$2"
+     "dm.basesize=25G"
    ]
 }
 EOF
