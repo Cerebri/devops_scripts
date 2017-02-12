@@ -59,5 +59,10 @@ systemctl daemon-reload
 
 systemctl start docker
 
-curl -L https://github.com/docker/compose/releases/download/1.9.0/docker-compose-`uname -s`-`uname -m` > /usr/bin/docker-compose
-chmod +x /usr/bin/docker-compose
+# Install docker-compose
+curl -L https://github.com/docker/compose/releases/download/1.11.0/docker-compose-`uname -s`-`uname -m` > /usr/local/sbin/docker-compose
+chmod +x /usr/local/sbin/docker-compose
+
+# Install docker-clean
+curl -s https://raw.githubusercontent.com/ZZROTDesign/docker-clean/v2.0.4/docker-clean | tee /usr/local/sbin/docker-clean > /dev/null
+chmod +x /usr/local/sbin/docker-clean
