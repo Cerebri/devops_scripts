@@ -7,7 +7,7 @@ yum install yum-plugin-fastestmirror -y
 
 uname -r
 
-yum remove kernel-headers kernel-tools kernel-tools-libs
+yum remove -y kernel-headers kernel-tools kernel-tools-libs
 
 yum install --enablerepo=elrepo-kernel kernel-ml.x86_64 kernel-ml-tools.x86_64 kernel-ml-tools-libs.x86_64 -y
 
