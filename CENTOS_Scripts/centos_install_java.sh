@@ -9,6 +9,7 @@ export JAVA_LOCATION="jdk1.8.0_131"
 export JAVA_FILE="jdk-8u131-linux-x64.rpm"
 export JAVA_URL="http://download.oracle.com/otn-pub/java/jdk/8u131-b11/d54c1d3a095b4ff2b6607d096fa80163/"
 export JAVA_HOME=/usr/java/$JAVA_LOCATION
+echo "JAVA_HOME=\"${JAVA_HOME}\"" >> /etc/environment
 # 121 Checksum ENV JAVA_SHA256=bd9f42e0725b32391c72f2800cdbb8a0c7db0ab2429b5f9e5bcf14b0090470a2
 export JAVA_SHA256=3d1e8cc66f4fd77acef6093329d5dd95bd06e4a03926c52df794f311a0c093f8
 # Get the SHA256 from https://www.oracle.com/webfolder/s/digest/8u131checksum.html
