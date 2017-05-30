@@ -5,12 +5,13 @@ cd /tmp
 # Get scripts
 yum install git -y
 git clone https://github.com/Cerebri/devops_scripts.git
-chmod -R u+x *.sh
+cd devops_scripts
+chmod -R -v u+x ./*
 
 # Install Java and Anaconda
-./CENTOS_Scripts/centos_install_java.sh
-./CENTOS_Scripts/centos_install_anaconda.sh
+sudo ./CENTOS_Scripts/centos_install_java.sh
+sudo ./CENTOS_Scripts/centos_install_anaconda.sh
 
 # Install Cassandra service and Datastax repo
-./HDP_Scripts/ambari_install_cassandra_service.sh
-./HDP_Scripts/hdp_install_datastax_repo.sh
+sudo ./HDP_Scripts/ambari_install_cassandra_service.sh
+sudo ./HDP_Scripts/hdp_install_datastax_repo.sh
