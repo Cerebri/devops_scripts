@@ -21,3 +21,5 @@ yum install wget unzip bzip2 -y \
 # So the link in /usr/local/bin gets found before /bin or /usr/bin
 # root does not have /usr/local/bin so yum keeps working for it
 ln -sf $ANACONDA_HOME/bin/python /usr/local/bin/python
+
+exit 0

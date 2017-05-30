@@ -49,3 +49,5 @@ ln -sf /etc/alternatives/java /usr/bin/java \
 && alternatives --set jar /usr/java/$JAVA_LOCATION/bin/jar \
 && alternatives --set javac /usr/java/$JAVA_LOCATION/bin/javac \
 && alternatives --set javaws /usr/java/$JAVA_LOCATION/bin/javaws
+
+exit 0
