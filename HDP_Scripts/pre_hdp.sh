@@ -2,6 +2,7 @@
 
 #
 # Please note this script must be run pre-installation on ALL cluster nodes to add the necessary repos to yum
+# Typically it will be run by the Cloudbreak deployer
 #
 
 cd /tmp

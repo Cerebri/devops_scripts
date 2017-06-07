@@ -2,6 +2,7 @@
 
 #
 # Please note this script must be run pre-installation on the Ambari node to add the necessary services and repos to yum
+# Typically it will be run by the Cloudbreak deployer
 #
 
 cd /tmp
