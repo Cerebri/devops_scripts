@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+#
+# Please note this script must be run pre-installation on ALL cluster nodes to add the necessary repos to yum
+#
+
 cd /tmp
 
 # Get scripts
@@ -12,4 +16,4 @@ chmod -R -v u+x ./*
 #./CENTOS_Scripts/centos_install_java.sh
 
 # Install Datastax repo
-./HDP_Scripts/hdp_install_datastax_repo.sh
+./HDP_Scripts/hdp_install_repos.sh
