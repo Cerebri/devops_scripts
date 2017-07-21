@@ -19,4 +19,5 @@ chmod -R -v u+x ./*
 # Install Cassandra & ELK service and Datastax repo
 sudo ./HDP_Scripts/ambari_install_elk_service.sh
 sudo ./HDP_Scripts/ambari_install_cassandra_service.sh
+sudo ./HDP_Scripts/ambari_install_postgres_service.sh
 sudo ./HDP_Scripts/hdp_install_repos.sh
