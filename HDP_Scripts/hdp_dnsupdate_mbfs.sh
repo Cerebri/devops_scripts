@@ -4,9 +4,11 @@
 DOMAIN="mbfs.cerebri.internal"
 LINE="SEARCH=${DOMAIN}"
 FILE=/etc/sysconfig/network
-grep -q "$LINE" "$FILE" || echo "$LINE" >> "$FILE"
+grep -q "$LINE" "$FILE" || echo -e "\n$LINE" >> "$FILE"
 LINE="DOMAIN=${DOMAIN}"
 grep -q "$LINE" "$FILE" || echo "$LINE" >> "$FILE"
+sed -i 's/example.com/${DOMAIN}/' "$FILE"
+sed -i 's/example.com/${DOMAIN}/' /etc/hosts
 
 # cat a here-doc represenation of the hooks to the appropriate file
 cat > /etc/dhcp/dhclient-exit-hooks <<"EOF"
