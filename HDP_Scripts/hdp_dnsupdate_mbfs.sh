@@ -1,14 +1,19 @@
 #!/usr/bin/env bash
 
-
 DOMAIN="mbfs.cerebri.internal"
 LINE="SEARCH=${DOMAIN}"
 FILE=/etc/sysconfig/network
 grep -q "$LINE" "$FILE" || echo -e "\n$LINE" >> "$FILE"
 LINE="DOMAIN=${DOMAIN}"
 grep -q "$LINE" "$FILE" || echo "$LINE" >> "$FILE"
-sed -i 's/example.com/${DOMAIN}/' "$FILE"
-sed -i 's/example.com/${DOMAIN}/' /etc/hosts
+find /etc -type f -exec sed -i -e "s/example.com/${DOMAIN}/" {} \;
+find /srv -type f -exec sed -i -e "s/example.com/${DOMAIN}/" {} \;
+systemctl restart salt-api.service
+systemctl restart salt-bootstrap.service
+systemctl restart salt-master.service
+systemctl restart salt-minion.service
+systemctl restart ambari-server.service
+systemctl restart ambari-agent.service
 
 # cat a here-doc represenation of the hooks to the appropriate file
 cat > /etc/dhcp/dhclient-exit-hooks <<"EOF"
@@ -21,11 +26,11 @@ then
 fi
 # when we have a new IP, perform nsupdate
 if [ "$reason" = BOUND ] || [ "$reason" = RENEW ] ||
-   [ "$reason" = REBIND ] || [ "$reason" = REBOOT ]
+   [ "$reason" = REBIND ] || [ "$reason" = REBOOT ] || [ "$reason" = PREINIT ]
 then
     printf "\tnew_ip_address:%s\n" "${new_ip_address:?}"
     host=$(hostname | cut -d'.' -f1)
-    domain=$(hostname | cut -d'.' -f2- -s)
+    domain=$(hostname -f | cut -d'.' -f2- -s)
     domain=${domain:='cerebri.internal'} # If no hostname is provided, use cdh-cluster.internal
     IFS='.' read -ra ipparts <<< "$new_ip_address"
     ptrrec="${ipparts[3]}.${ipparts[2]}.${ipparts[1]}.${ipparts[0]}.in-addr.arpa"
@@ -51,4 +56,4 @@ exit 0;
 EOF
 chmod 755 /etc/dhcp/dhclient-exit-hooks
 cp /etc/dhcp/dhclient-exit-hooks /etc/NetworkManager/dispatcher.d/12-register-dns
-service network restart
+systemctl restart network.service
