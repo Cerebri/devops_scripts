@@ -60,7 +60,7 @@ systemctl daemon-reload
 systemctl start docker
 
 # Install docker-compose
-curl -L https://github.com/docker/compose/releases/download/1.11.0/docker-compose-`uname -s`-`uname -m` > /usr/local/sbin/docker-compose
+curl -L https://github.com/docker/compose/releases/download/1.17.0/docker-compose-`uname -s`-`uname -m` > /usr/local/sbin/docker-compose
 chmod +x /usr/local/sbin/docker-compose
 
 # Install docker-clean
