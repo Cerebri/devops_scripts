@@ -261,9 +261,6 @@
           "name" : "NODEMANAGER"
         },
         {
-          "name" : "OOZIE_CLIENT"
-        },
-        {
           "name" : "SQOOP"
         },
         {
