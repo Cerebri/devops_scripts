@@ -6,9 +6,6 @@
           "name": "ZEPPELIN_MASTER"
         },
         {
-          "name" : "POSTGRESDB_SERVER"
-        },
-        {
           "name": "YARN_CLIENT"
         },
         {
