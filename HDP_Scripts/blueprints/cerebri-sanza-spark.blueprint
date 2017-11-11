@@ -132,7 +132,10 @@
           "name": "MAPREDUCE2_CLIENT"
         },
         {
-          "name": "ZOOKEEPER_SERVER"
+          "name": "ZOOKEEPER_CLIENT"
+        },
+        {
+          "name" : "HIVE_CLIENT"
         },
         {
           "name": "DATANODE"
@@ -192,9 +195,6 @@
           "name": "MAPREDUCE2_CLIENT"
         },
         {
-          "name": "ZOOKEEPER_SERVER"
-        },
-        {
           "name": "DATANODE"
         },
         {
@@ -246,7 +246,10 @@
           "name": "SLIDER"
         },
         {
-          "name": "ZOOKEEPER_SERVER"
+          "name": "ZOOKEEPER_CLIENT"
+        },
+        {
+          "name" : "HIVE_CLIENT"
         },
         {
           "name": "DATANODE"
@@ -277,6 +280,12 @@
         },
         {
           "name" : "HIVE_CLIENT"
+        },
+        {
+          "name" : "ZOOKEEPER_CLIENT"
+        },
+        {
+          "name": "HCAT"
         }
       ],
       "configurations" : [ ],
