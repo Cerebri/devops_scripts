@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
  # Storage Account ID
-export ACCOUNT_ID=cerebrigm
+export ACCOUNT_ID=$1
   # Storage Account key
-export ACCOUNT_KEY="*********"
+export ACCOUNT_KEY=$2
 
 if [[ ! -d "/data" ]]; then
     yum install samba-client samba-common cifs-utils -y
