@@ -24,6 +24,9 @@
           "name": "ZOOKEEPER_CLIENT"
         },
         {
+          "name": "HCAT"
+        },
+        {
           "name": "PIG"
         },
         {
@@ -67,6 +70,9 @@
         },
         {
           "name": "ZOOKEEPER_CLIENT"
+        },
+        {
+          "name": "HCAT"
         },
         {
           "name": "PIG"
@@ -175,6 +181,9 @@
         },
         {
           "name": "PIG"
+        },
+        {
+          "name": "WEBHCAT_SERVER"
         },
         {
           "name": "KAFKA_BROKER"
