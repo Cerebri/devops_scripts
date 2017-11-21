@@ -6,94 +6,49 @@
           "name": "ZEPPELIN_MASTER"
         },
         {
-          "name": "YARN_CLIENT"
-        },
-        {
-          "name": "HDFS_CLIENT"
-        },
-        {
-          "name": "SQOOP"
-        },
-        {
-          "name": "SPARK2_CLIENT"
-        },
-        {
-          "name": "TEZ_CLIENT"
-        },
-        {
-          "name": "ZOOKEEPER_CLIENT"
-        },
-        {
-          "name": "HCAT"
-        },
-        {
-          "name": "PIG"
-        },
-        {
-          "name": "MAPREDUCE2_CLIENT"
-        },
-        {
-          "name": "SLIDER"
-        },
-        {
-          "name": "HBASE_CLIENT"
-        },
-        {
-          "name": "HIVE_CLIENT"
-        },
-        {
-          "name": "METRICS_MONITOR"
-        }
-      ],
-      "name": "zeppelin",
-      "cardinality": "1"
-    },
-    {
-      "components": [
-        {
-          "name": "YARN_CLIENT"
-        },
-        {
-          "name": "HDFS_CLIENT"
-        },
-        {
-          "name": "SQOOP"
-        },
-        {
-          "name": "SPARK2_CLIENT"
-        },
-        {
-          "name": "METRICS_MONITOR"
-        },
-        {
-          "name": "TEZ_CLIENT"
-        },
-        {
-          "name": "ZOOKEEPER_CLIENT"
-        },
-        {
-          "name": "HCAT"
-        },
-        {
-          "name": "PIG"
-        },
-        {
-          "name": "MAPREDUCE2_CLIENT"
-        },
-        {
-          "name": "SLIDER"
-        },
-        {
           "name": "AMBARI_SERVER"
         },
         {
+          "name": "METRICS_COLLECTOR"
+        },
+        {
+          "name": "YARN_CLIENT"
+        },
+        {
+          "name": "HDFS_CLIENT"
+        },
+        {
+          "name": "SQOOP"
+        },
+        {
+          "name": "SPARK2_CLIENT"
+        },
+        {
+          "name": "TEZ_CLIENT"
+        },
+        {
+          "name": "ZOOKEEPER_CLIENT"
+        },
+        {
+          "name": "HCAT"
+        },
+        {
+          "name": "PIG"
+        },
+        {
+          "name": "MAPREDUCE2_CLIENT"
+        },
+        {
+          "name": "SLIDER"
+        },
+        {
           "name": "HBASE_CLIENT"
         },
         {
           "name": "HIVE_CLIENT"
         },
         {
-          "name": "METRICS_COLLECTOR"
+          "name": "METRICS_MONITOR"
         }
       ],
       "name": "ambari",
