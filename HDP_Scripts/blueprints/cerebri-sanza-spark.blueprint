@@ -45,6 +45,9 @@
           "name": "HBASE_CLIENT"
         },
         {
+          "name": "LIVY2_SERVER"
+        },
+        {
           "name": "HIVE_CLIENT"
         },
         {
