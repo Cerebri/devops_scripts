@@ -24,8 +24,8 @@ apt-get install wget unzip bzip2 -y \
 # root does not have /usr/local/bin so yum keeps working for it
 ln -sf $ANACONDA_HOME/bin/python /usr/local/bin/python
 
-# Add anaconda bin to end of path so conda is easy to access PATH
-echo "export PATH=$PATH:/usr/anaconda2/bin" >> /etc/bash.bashrc
+# Add anaconda bin to end of dev users path so conda is easy to access
+echo "export PATH=$PATH:/usr/anaconda2/bin" >> /home/dev/.bashrc
 
 # Install sparkmagic kernels for jupyter
 $ANACONDA_HOME/bin/pip install sparkmagic
@@ -38,8 +38,5 @@ $ANACONDA_HOME/bin/jupyter-kernelspec install sparkmagic/kernels/pyspark3kernel
 $ANACONDA_HOME/bin/jupyter-kernelspec install sparkmagic/kernels/sparkrkernel
 
 $ANACONDA_HOME/bin/jupyter nbextension enable --py --sys-prefix widgetsnbextension
-
-# Add anaconda bin to end of path so conda is easy to access PATH
-echo "export PATH=$PATH:/usr/anaconda2/bin" >> /etc/bash.bashrc
 
 exit 0
