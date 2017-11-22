@@ -28,7 +28,7 @@ ln -sf $ANACONDA_HOME/bin/python /usr/local/bin/python
 echo "export PATH=$PATH:/usr/anaconda2/bin" >> /home/dev/.bashrc
 
 # Install dependencies for sparkmagic
-apt-get install gcc libkrb5-dev
+apt-get install gcc libkrb5-dev -y
 
 # Install sparkmagic kernels for jupyter
 $ANACONDA_HOME/bin/pip install sparkmagic
