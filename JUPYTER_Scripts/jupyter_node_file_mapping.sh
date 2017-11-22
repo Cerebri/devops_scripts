@@ -5,7 +5,7 @@ export ACCOUNT_ID=$1
 export ACCOUNT_KEY=$2
 
 if [[ ! -d "/data" ]]; then
-    yum install samba-client samba-common cifs-utils -y
+    apt-get install samba-client samba-common cifs-utils -y
 	mkdir -p /data
 	mkdir -p /scratch
 	mkdir -p /jupyter-notebooks
