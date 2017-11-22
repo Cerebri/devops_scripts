@@ -13,7 +13,7 @@ export ANACONDA_SHA256=23c676510bc87c95184ecaeb327c0b2c88007278e0d698622e2dd8fb1
 # Get the SHA256 from https://docs.anaconda.com/anaconda/install/hashes/lin-2-64
 
 # install anaconda with SHA check (This is important)
-yum install wget unzip bzip2 -y \
+apt-get install wget unzip bzip2 -y \
 && wget -c -O "$ANACONDA_FILE" --no-cookies --no-check-certificate --header "Cookie: oraclelicense=accept-securebackup-cookie" "$ANACONDA_URL$ANACONDA_FILE" \
 && echo "$ANACONDA_SHA256 $ANACONDA_FILE" | sha256sum -c - \
 && bash $ANACONDA_FILE -b -p $ANACONDA_HOME -f \
