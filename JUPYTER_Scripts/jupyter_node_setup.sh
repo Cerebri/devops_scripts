@@ -1,14 +1,35 @@
 #!/usr/bin/env bash
 
+# Storage Account ID
+export ACCOUNT_ID=$1
+# Storage Account key
+export ACCOUNT_KEY=$2
+
+if [[ ! -d "/data" ]]; then
+	apt-get install samba-client samba-common cifs-utils -y
+	mkdir -p /data
+	mkdir -p /scratch
+	mkdir -p /jupyter-notebooks
+
+	# Mount directories here
+	mount -t cifs //$ACCOUNT_ID.file.core.windows.net/sftpdata /data -o vers=3.0,username=$ACCOUNT_ID,password=$ACCOUNT_KEY,dir_mode=0555,file_mode=0444,uid=dev,gid=dev
+	echo "//$ACCOUNT_ID.file.core.windows.net/sftpdata    /data    cifs    vers=3.0,username=$ACCOUNT_ID,password=$ACCOUNT_KEY,dir_mode=0555,file_mode=0444,uid=dev,gid=dev 0 0" >> /etc/fstab
+
+	mount -t cifs //$ACCOUNT_ID.file.core.windows.net/scratch /scratch -o vers=3.0,username=$ACCOUNT_ID,password=$ACCOUNT_KEY,dir_mode=0777,file_mode=0777,uid=dev,gid=dev
+	echo "//$ACCOUNT_ID.file.core.windows.net/scratch    /scratch    cifs    vers=3.0,username=$ACCOUNT_ID,password=$ACCOUNT_KEY,dir_mode=0777,file_mode=0777,uid=dev,gid=dev 0 0" >> /etc/fstab
+
+	mount -t cifs //$ACCOUNT_ID.file.core.windows.net/jupyter-notebooks /jupyter-notebooks -o vers=3.0,username=$ACCOUNT_ID,password=$ACCOUNT_KEY,dir_mode=0777,file_mode=0777,uid=dev,gid=dev
+	echo "//$ACCOUNT_ID.file.core.windows.net/jupyter-notebooks    /jupyter-notebooks    cifs    vers=3.0,username=$ACCOUNT_ID,password=$ACCOUNT_KEY,dir_mode=0777,file_mode=0777,uid=dev,gid=dev 0 0" >> /etc/fstab
+
+fi
+
 cd /tmp
 
 export ANACONDA_LOCATION="anaconda2"
-#export ANACONDA_FILE="Anaconda2-4.3.1-Linux-x86_64.sh"
 export ANACONDA_FILE="Anaconda2-5.0.1-Linux-x86_64.sh"
 export ANACONDA_URL="https://repo.continuum.io/archive/"
 export ANACONDA_HOME=/usr/$ANACONDA_LOCATION
 echo "ANACONDA_HOME=\"${ANACONDA_HOME}\"" >> /etc/environment
-#export ANACONDA_SHA256=e9b8f2645df6b1527ba56d61343162e0794acc3ee8dde2a6bba353719e2d878d
 export ANACONDA_SHA256=23c676510bc87c95184ecaeb327c0b2c88007278e0d698622e2dd8fb14d9faa4
 # Get the SHA256 from https://docs.anaconda.com/anaconda/install/hashes/lin-2-64
 

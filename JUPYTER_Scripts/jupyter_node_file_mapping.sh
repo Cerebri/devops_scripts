@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
- # Storage Account ID
+
+# Storage Account ID
 export ACCOUNT_ID=$1
-  # Storage Account key
+# Storage Account key
 export ACCOUNT_KEY=$2
 
 if [[ ! -d "/data" ]]; then
-    apt-get install samba-client samba-common cifs-utils -y
+	apt-get install samba-client samba-common cifs-utils -y
 	mkdir -p /data
 	mkdir -p /scratch
 	mkdir -p /jupyter-notebooks
