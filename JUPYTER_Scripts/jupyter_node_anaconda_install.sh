@@ -27,6 +27,9 @@ ln -sf $ANACONDA_HOME/bin/python /usr/local/bin/python
 # Add anaconda bin to end of dev users path so conda is easy to access
 echo "export PATH=$PATH:/usr/anaconda2/bin" >> /home/dev/.bashrc
 
+# Install dependencies for sparkmagic
+apt-get install gcc libkrb5-dev
+
 # Install sparkmagic kernels for jupyter
 $ANACONDA_HOME/bin/pip install sparkmagic
 
