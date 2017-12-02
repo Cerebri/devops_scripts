@@ -14,7 +14,7 @@ echo 'console="comconsole vidconsole"' >> /boot/loader.conf
 #echo 'comconsole_speed="115200"' >> /boot/loader.conf
 echo 'kldload udf'  >> /boot/loader.conf
 echo 'vfs.mountroot.timeout=300'  >> /boot/loader.conf
-curl -O https://cerebrisandbox.file.core.windows.net/scratch/udf.ko
+curl -O https://raw.githubusercontent.com/Cerebri/devops_scripts/master/AZURE_Scripts/udf.ko
 mv udf.ko /boot/kernel/
 
 git clone https://github.com/Azure/WALinuxAgent.git
