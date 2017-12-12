@@ -18,6 +18,7 @@ echo 'kldload udf'  >> /boot/loader.conf
 echo 'vfs.mountroot.timeout=300'  >> /boot/loader.conf
 curl -O https://github.com/Cerebri/devops_scripts/raw/master/AZURE_Scripts/udf.ko
 mv udf.ko /boot/kernel/
+chmod 0555 /boot/kernel/udf.ko
 
 git clone https://github.com/Azure/WALinuxAgent.git
 cd WALinuxAgent
