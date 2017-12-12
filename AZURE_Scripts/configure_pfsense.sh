@@ -10,13 +10,13 @@ pkg install -y python27 py27-setuptools bash git sudo
 ln -s /usr/local/bin/python2.7 /usr/bin/python
 
 echo 'ifconfig_hn0="SYNCDHCP"' >> /etc/rc.conf
-echo 'console="comconsole,vidconsole"' >> /boot/loader.conf.local
-echo 'boot_multicons="YES"' >> /boot/loader.conf.local
-echo 'console="comconsole,vidconsole"' >> /boot/loader.conf.local
-echo 'comconsole_speed="115200"' >> /boot/loader.conf.local
+echo 'boot_multicons="YES"' >> /boot/loader.conf
+echo 'boot_serial="YES"' >> /boot/loader.conf
+echo 'console="comconsole"' >> /boot/loader.conf
+echo 'comconsole_speed="115200"' >> /boot/loader.conf
 echo 'kldload udf'  >> /boot/loader.conf
 echo 'vfs.mountroot.timeout=300'  >> /boot/loader.conf
-curl -O https://<extract this file from the BSD 11.1 image>/udf.ko
+curl -O https://github.com/Cerebri/devops_scripts/raw/master/AZURE_Scripts/udf.ko
 mv udf.ko /boot/kernel/
 
 git clone https://github.com/Azure/WALinuxAgent.git
