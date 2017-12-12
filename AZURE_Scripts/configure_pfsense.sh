@@ -29,5 +29,5 @@ ln -sf /usr/local/sbin/waagent2.0 /usr/sbin/waagent2.0
 echo '#! /bin/sh' >> /usr/local/etc/rc.d/waagent.sh
 echo '/usr/local/sbin/waagent --daemon' >> /usr/local/etc/rc.d/waagent.sh
 chmod +x /usr/local/etc/rc.d/waagent.sh
-echo  'waagent_enable="YES"' >> /etc/rc.conf
 echo "y" |  /usr/local/sbin/waagent -deprovision+user
+echo  'waagent_enable="YES"' >> /etc/rc.conf
