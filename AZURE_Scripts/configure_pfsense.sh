@@ -26,7 +26,7 @@ git checkout v2.2.14
 python setup.py install
 ln -sf /usr/local/sbin/waagent /usr/sbin/waagent
 ln -sf /usr/local/sbin/waagent2.0 /usr/sbin/waagent2.0
-curl -O https://github.com/Cerebri/devops_scripts/raw/master/AZURE_Scripts/waagent.sh
+curl -O https://raw.githubusercontent.com/Cerebri/devops_scripts/master/AZURE_Scripts/waagent.sh
 mv waagent.sh /usr/local/etc/rc.d/
 #echo '#! /bin/sh' >> /usr/local/etc/rc.d/waagent.sh
 #echo '/usr/local/sbin/waagent --daemon' >> /usr/local/etc/rc.d/waagent.sh
