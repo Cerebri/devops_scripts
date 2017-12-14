@@ -8,7 +8,7 @@ echo debconf shared/accepted-oracle-license-v1-1 select true | sudo debconf-set-
 echo debconf shared/accepted-oracle-license-v1-1 seen true | sudo debconf-set-selections
 sudo apt-get install oracle-java8-installer -y
 
-sudo echo 'export JAVA_HOME="/usr/bin/java"' >> /etc/profile
-sudo echo 'export PATH=$JAVA_HOME/bin:$PATH' >> /etc/profile
+sudo echo 'export JAVA_HOME="/usr"' >> /etc/profile
+sudo echo 'export PATH=$JAVA_HOME/bin/java/bin:$PATH' >> /etc/profile
 
 exit 0
