@@ -12,7 +12,7 @@ cd /tmp
 
 curl --user $AMBARI_USER:$PASSWORD -H "X-Requested-By: ambari" -X GET http://$AMBARI_URL:8080/api/v1/clusters/$HDP_NAME/services/HDFS/components/HDFS_CLIENT?format=client_config_tar -o configs.tar.gz
 sudo tar xvzf configs.tar.gz -C /etc/hadoop/conf
-sudo awk '{ gsub(/export JAVA_HOME=\/usr\/lib\/jvm\/java/, "export JAVA_HOME=/usr"); print }' /etc/hadoop/conf/hadoop-env.sh > /etc/hadoop/conf/new-hadoop-env.sh
+sudo awk '{ gsub(/export JAVA_HOME=\/usr\/lib\/jvm\/java/, "export JAVA_HOME=${JAVA_HOME}"); print }' /etc/hadoop/conf/hadoop-env.sh > /etc/hadoop/conf/new-hadoop-env.sh
 sudo mv /etc/hadoop/conf/new-hadoop-env.sh /etc/hadoop/conf/hadoop-env.sh
 
 
