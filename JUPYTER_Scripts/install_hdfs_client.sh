@@ -14,6 +14,7 @@ curl --user $AMBARI_USER:$PASSWORD -H "X-Requested-By: ambari" -X GET http://$AM
 sudo tar xvzf configs.tar.gz -C /etc/hadoop/conf
 sudo awk '{ gsub(/export JAVA_HOME=\/usr\/lib\/jvm\/java/, "export JAVA_HOME=${JAVA_HOME}"); print }' /etc/hadoop/conf/hadoop-env.sh > /etc/hadoop/conf/new-hadoop-env.sh
 sudo mv /etc/hadoop/conf/new-hadoop-env.sh /etc/hadoop/conf/hadoop-env.sh
+sudo chown -R dev:dev /etc/hadoop/conf/
 
 
 ## needs to go in /etc/apt/sources.list.d/
