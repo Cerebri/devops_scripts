@@ -2,6 +2,8 @@
 
 cd /tmp
 
+apt-get update
+
 export ANACONDA_LOCATION="anaconda2"
 export ANACONDA_FILE="Anaconda2-5.0.1-Linux-x86_64.sh"
 export ANACONDA_URL="https://repo.continuum.io/archive/"
