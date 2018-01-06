@@ -14,8 +14,10 @@ echo 'boot_multicons="YES"' >> /boot/loader.conf.local
 echo 'boot_serial="YES"' >> /boot/loader.conf.local
 echo 'console="comconsole,vidconsole"' >> /boot/loader.conf.local
 echo 'comconsole_speed="115200"' >> /boot/loader.conf.local
-echo 'kldload udf'  >> /boot/loader.conf
+echo 'udf_load="YES"'  >> /boot/loader.conf
 echo 'vfs.mountroot.timeout=300'  >> /boot/loader.conf
+echo 'legal.intel_ipw.license_ack=1' >> /boot/loader.conf
+echo 'legal.intel_iwi.license_ack=1' >> /boot/loader.conf
 curl -O https://raw.githubusercontent.com/Cerebri/devops_scripts/master/AZURE_Scripts/udf.ko
 mv udf.ko /boot/kernel/
 chmod 0555 /boot/kernel/udf.ko
