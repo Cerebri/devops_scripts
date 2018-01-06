@@ -18,7 +18,7 @@ $PrivateConfig = '{
     "dayOfWeek" : "Sunday|Wednesday",
     "startTime" : "03:00",
     "category" : "ImportantAndRecommended",
-    "oneoff" : "True"
+    "oneoff" : "True",
     "installDuration" : "01:00" }'
 $PublicConfig = '{}'
 
