@@ -19,6 +19,7 @@ $PrivateConfig = '{
     "startTime" : "03:00",
     "category" : "ImportantAndRecommended",
     "oneoff" : "True",
+    "distUpgradeAll" : "True"
     "installDuration" : "01:00" }'
 $PublicConfig = '{}'
 
@@ -35,7 +36,7 @@ if ($RmVMs) {
             if ($RmPState -eq 'PowerState/running') {
                 Write-Host ($RmVM.Name + " is started, setting up linux updates.")
                 # Apply the configuration to the extension
-                Set-AzureRmVMExtension -ResourceGroupName $ResourceGroup -VMName $RmVM -ExtensionType $ExtensionName -Name "LinuxUpdate" -Publisher $Publisher -ProtectedSettingString $PrivateConfig -TypeHandlerVersion $version -SettingString $PublicConfig | Update-AzureRmVM
+                Set-AzureRmVMExtension -ResourceGroupName $ResourceGroup -VMName $RmVM.Name -ExtensionType $ExtensionName -Name "LinuxUpdate" -Publisher $Publisher -ProtectedSettingString $PrivateConfig -TypeHandlerVersion $version -SettingString $PublicConfig -Location $RmVM.Location
             }
             else {
                 Write-Host ($RmVM.Name + " is starting ...")
@@ -43,7 +44,7 @@ if ($RmVMs) {
                 if ($RmSState -eq 'True') {
                     Write-Host ($RmVM.Name + "has been started.")
                     # Apply the configuration to the extension
-                    Set-AzureRmVMExtension -ResourceGroupName $ResourceGroup -VMName $RmVM -ExtensionType $ExtensionName -Name "LinuxUpdate" -Publisher $Publisher -ProtectedSettingString $PrivateConfig -TypeHandlerVersion $version -SettingString $PublicConfig | Update-AzureRmVM
+                    Set-AzureRmVMExtension -ResourceGroupName $ResourceGroup -VMName $RmVM.Name -ExtensionType $ExtensionName -Name "LinuxUpdate" -Publisher $Publisher -ProtectedSettingString $PrivateConfig -TypeHandlerVersion $version -SettingString $PublicConfig -Location $RmVM.Location
                 }
                 else {
                     Write-Host (RmVM.Name + "failed to start.")
