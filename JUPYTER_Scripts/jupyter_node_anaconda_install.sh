@@ -42,4 +42,7 @@ $ANACONDA_HOME/bin/jupyter-kernelspec install sparkmagic/kernels/sparkrkernel
 
 $ANACONDA_HOME/bin/jupyter nbextension enable --py --sys-prefix widgetsnbextension
 
+# Install MonetDB dialect
+$ANACONDA_HOME/bin/pip install sqlalchemy-monetdb
+
 exit 0
