@@ -1,14 +1,25 @@
 Param(
 [string]$ResourceGroup,
-[string]$ImageBase
+[string]$Location
+[strint]$StorageAccount
 )
 
+Get-AzureRmResourceGroup -Name $ResourceGroup -ErrorVariable notPresent -ErrorAction SilentlyContinue
+if ($notPresent)
+{
+    New-AzureRmResourceGroup -Name $ResourceGroup -Location $Location
+}
+# Check for storage account and create if not found
+$StorageAccountRM = Get-AzureRmStorageAccount -Name $StorageAccount -ResourceGroupName $ResourceGroup -ErrorAction Ignore
+if ($StorageAccountRM -eq $null)
+{
+    New-AzureRmStorageAccount -Location $Location -Name $StorageAccount -ResourceGroupName $ResourceGroup -SkuName Standard_LRS -Kind Storage
+}
 
-#    $ImageName = "$($ImageBase)-$($i)"
-    $ImageName = "$($ImageBase)"
+    $ImageName = "pfsense"
     Write-Host "Uploading $($ImageName)...."
     $localFile = "C:\Users\Public\Documents\Hyper-V\Virtual Hard Disks\$($ImageName).vhd"
-    $urlOfUploadedImageVhd = "https://cerebrimbfs.blob.core.windows.net/images/$($ImageName).vhd"
+    $urlOfUploadedImageVhd = "https://$($StorageAccount).blob.core.windows.net/images/$($ImageName).vhd"
     $location = "Central US"
 
     # Create the Source Image

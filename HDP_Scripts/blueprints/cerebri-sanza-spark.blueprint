@@ -248,7 +248,7 @@
       ],
       "configurations" : [ ],
       "name" : "worker",
-      "cardinality" : "1+"
+      "cardinality" : "3+"
     },
     {
       "components" : [
