@@ -1,7 +1,7 @@
 Param(
 [string]$ResourceGroup,
-[string]$Location
-[strint]$StorageAccount
+[string]$Location,
+[string]$StorageAccount
 )
 
 Get-AzureRmResourceGroup -Name $ResourceGroup -ErrorVariable notPresent -ErrorAction SilentlyContinue
@@ -24,9 +24,6 @@ if ($StorageAccountRM -eq $null)
 
     # Create the Source Image
     Add-AzureRmVhd -Destination $urlOfUploadedImageVhd -LocalFilePath $localFile -ResourceGroupName $ResourceGroup -Overwrite
-    $imageConfig = New-AzureRmImageConfig -Location $location
-    $imageConfig = Set-AzureRmImageOsDisk -Image $imageConfig -OsType 'Linux' -OsState 'Generalized' -BlobUri $urlOfUploadedImageVhd
-    $sourceimage = New-AzureRmImage -ImageName $ImageName -ResourceGroupName $ResourceGroup -Image $imageConfig
-
-
-
+#    $imageConfig = New-AzureRmImageConfig -Location $location
+#    $imageConfig = Set-AzureRmImageOsDisk -Image $imageConfig -OsType 'Linux' -OsState 'Generalized' -BlobUri $urlOfUploadedImageVhd
+#    $sourceimage = New-AzureRmImage -ImageName $ImageName -ResourceGroupName $ResourceGroup -Image $imageConfig
