@@ -23,7 +23,7 @@ foreach ($subscriptionId in $SubscriptionIds) {
 
     # select the subscription
     # $subscription = Select-AzureRmSubscription -SubscriptionId $subscriptionId
-    $subscription = Select-AzureRmSubscription -SubscriptionId e85f8f8e-cd5f-4aaf-a8d4-eddcc41d05a4
+    $subscription = Select-AzureRmSubscription -SubscriptionId <Subscription ID>
 
     if ($subscription -eq $null) {
         Write-Output "Unable to find any subscriptions.  Perhaps you need to run 'Add-AzureRmAccount' and login before running this script? Unable to proceed."
