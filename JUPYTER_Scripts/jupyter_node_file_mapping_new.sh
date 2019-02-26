@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+sudo su
+
 # Storage Account ID
 export ACCOUNT_ID=$1
 # Storage Account key
