@@ -1,6 +1,6 @@
 Param(
-[string]$accountName=$1,
-[string]$accountKey=$2
+[string]$accountName,
+[string]$accountKey
 )
 
 $connectFile = "c:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp\ConnectShare.cmd"
