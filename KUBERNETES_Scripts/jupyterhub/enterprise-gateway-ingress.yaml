@@ -1,0 +1,17 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  namespace: enterprise-gateway
+  name: enterprise-gateway-ingress
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    traefik.frontend.rule.type: PathPrefixStrip
+spec:
+  rules:
+    - host: sb2--ingress.cerebri.internal
+      http:
+        paths:
+          - path: /gateway
+            backend:
+              serviceName: enterprise-gateway
+              servicePort: 8888
