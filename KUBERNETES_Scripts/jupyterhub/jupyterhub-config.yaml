@@ -40,7 +40,7 @@ ingress:
 singleuser:
   defaultUrl: "/lab"
   image:
-    name: elyra/nb2kg
+    name: cerebriai/nb2kg
     tag: dev
   storage:
     dynamic:
