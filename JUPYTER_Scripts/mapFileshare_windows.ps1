@@ -1,5 +1,5 @@
-Param([string]$accountName="cerebritrustford")
-Param([string]$accountKey="M7tys/4BP3Yix0glD9nnjmpwdX5O7rv6oT82Kf3x7Ja+//aYnFO0AZ29GT1gWWSdvOtEKZ30loisu/cW4r1uMw==")
+Param([string]$accountName="")
+Param([string]$accountKey="")
 
 $connectFile = "c:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp\ConnectShare.cmd"
 
