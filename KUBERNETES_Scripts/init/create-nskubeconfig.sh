@@ -15,14 +15,30 @@ ca=$(kubectl get secret/$name_default -n default -o jsonpath='{.data.ca\.crt}')
 # Start config creation
 echo "apiVersion: v1
 kind: Config
+
+# Define the cluster
 clusters:
 - name: ${cluster}
   cluster:
     certificate-authority-data: ${ca}
     server: ${server}
-contexts:" > ns.config
+" > ns.config
 
-# Start writing contexts
+# Add user
+echo "users:" >> ns.config
+for ENV in $ENV_LIST; do
+  echo "Adding service accounts for namespace: ${NAME}-${ENV}"
+  name=$(kubectl get secret -n ${NAME}-${ENV} -o jsonpath="{.items[].metadata.name}")
+  token=$(kubectl get secret/$name -n ${NAME}-${ENV} -o jsonpath='{.data.token}' | base64 -d)
+  echo "- name: ${NAME}-${ENV}-sa
+  user:
+    as-user-extra: {}
+    client-key-data: ${ca}
+    token: ${token}" >> ns.config
+done
+
+# Start writing contexts linking cluster to user
+echo "contexts:" >> ns.config
 for ENV in $ENV_LIST; do
   echo "Adding contexts for namespace: ${NAME}-${ENV}"
   echo "- name: ${NAME}-${ENV}
@@ -31,15 +47,7 @@ for ENV in $ENV_LIST; do
     namespace: ${NAME}-${ENV}
     user: ${NAME}-${ENV}-sa" >> ns.config
 done
-echo "current-context: ${NAME}-dev" >> ns.config
 
-# Add users
-echo "users:" >> ns.config
-for ENV in $ENV_LIST; do
-  echo "Adding service accounts for namespace: ${NAME}-${ENV}"
-  name=$(kubectl get secret -n ${NAME}-${ENV} -o jsonpath="{.items[].metadata.name}" | grep ${NAME}-${ENV}-sa-token)
-  token=$(kubectl get secret/$name -n ${NAME}-${ENV} -o jsonpath='{.data.token}' | base64 -d)
-  echo "- name: ${NAME}-${ENV}-sa
-  user:
-    token: ${token}" >> ns.config
-done
+# Define current context
+echo "current-context: ${NAME}-${ENV}" >> ns.config
+
