@@ -3,7 +3,9 @@
 #Fix DNS, call with the FQDN as $1 and make sure to run as sudo
 DOMAINNAME=$1
 sudo sed -i "s/reddog.microsoft.com/${DOMAINNAME}/" /etc/resolv.conf
-sudo echo "search ${DOMAINNAME}" > /etc/resolvconf/resolv.conf.d/base
+#sudo -i
+echo "search ${DOMAINNAME}" > /etc/resolvconf/resolv.conf.d/base
+#exit
 
 sudo apt-get update
 
