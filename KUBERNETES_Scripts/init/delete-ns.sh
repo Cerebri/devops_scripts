@@ -8,5 +8,5 @@ ENV_LIST="${@}"
 
 for ENV in $ENV_LIST; do
   echo "Creating namespace: ${NAME}-${ENV}"
-  cat ns-create.yaml.tmpl | sed "s/NAME/${NAME}/g" | sed "s/ENV/${ENV}/g" | kubectl apply -f -
+  cat ns-create.yaml.tmpl | sed "s/NAME/${NAME}/g" | sed "s/ENV/${ENV}/g" | kubectl delete -f -
 done

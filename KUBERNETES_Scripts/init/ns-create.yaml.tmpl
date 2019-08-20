@@ -11,15 +11,13 @@ metadata:
   namespace: NAME-ENV
 
 ---
-kind: ClusterRole
+kind: Role
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: NAME-ENV-controller
-  labels:
-    rbac.authorization.k8s.io/aggregate-to-edit: "true"
-    rbac.authorization.k8s.io/aggregate-to-admin: "false"
+  name: NAME-ENV-role
+  namespace: NAME-ENV
 rules:
-- apiGroups: ["", "extensions", "apps"]
+- apiGroups: ["", "extensions", "apps", "autoscaling"]
   resources: ["*"]
   verbs: ["*"]
 - apiGroups: ["batch"]
@@ -29,16 +27,16 @@ rules:
   verbs: ["*"]
 
 ---
-apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: NAME-ENV-controller
+  name: NAME-ENV-binding
   namespace: NAME-ENV
 subjects:
 - kind: ServiceAccount
   name: NAME-ENV-sa
   namespace: NAME-ENV
 roleRef:
-  kind: ClusterRole
-  name: NAME-ENV-controller
   apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: NAME-ENV-role
