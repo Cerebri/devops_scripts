@@ -18,3 +18,15 @@ function kubectlns() {
 
   kubectl config set-context ${ctx} --namespace="${ns}"
 }
+
+function badpods() {
+  kubectl get po --all-namespaces | grep -v kube-system | grep -v Running | grep -v Completed
+}
+
+function killpods_unrunning() {
+  kubectl get po --all-namespaces | awk '{if ($4 != "Running") system ("kubectl -n " $1 " delete pods " $2 " --grace-period=0 " " --force ")}'
+}
+
+function killpods_error() {
+  kubectl get pods --all-namespaces | grep Error | awk '{print $2 " --namespace=" $1}' | xargs kubectl delete pod
+}
