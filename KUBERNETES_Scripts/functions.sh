@@ -30,3 +30,10 @@ function killpods_unrunning() {
 function killpods_error() {
   kubectl get pods --all-namespaces | grep Error | awk '{print $2 " --namespace=" $1}' | xargs kubectl delete pod
 }
+
+function kill_old() {
+  kubectl get pods --all-namespaces -o go-template --template '{{range .items}}{{.metadata.namespace}} {{.metadata.name}} {{.metadata.creationTimestamp}}{{"\n"}}{{end}}' | \
+  grep driver | \
+  awk '$3 <= "'$(date -d 'now-7 days' -Ins --utc | sed 's/+0000/Z/')'" { print $1 " " $2 }' | \
+  xargs --no-run-if-empty -n2 sh -c 'kubectl delete pod -n $1 $2' sh
+}
