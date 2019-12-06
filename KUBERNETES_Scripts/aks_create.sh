@@ -14,9 +14,13 @@ ClusterType="Development"
 # Install aks-preview
 az extension add --name aks-preview
 az extension update --name aks-preview
-
+az feature register --namespace Microsoft.ContainerService --name AKSPrivateLinkPreview
+# Wait for it to be registered
+az provider register --namespace Microsoft.ContainerService
+az provider register --namespace Microsoft.Network
+az provider register --namespace Microsoft.Compute
 # Create Service Principal for this aks
-az ad sp create-for-rbac --skip-assignment --name "k8s${ClientRG}{ClusterType}" > secrets.txt
+az ad sp create-for-rbac --skip-assignment --name "k8s${ClientRG}${ClusterType}" > secrets.txt
 AppID=$(cat secrets.txt | grep appId | awk '{ print substr($2, 1, length($2)-1) }')
 AppPassword=$(cat secrets.txt | grep password | awk '{ print substr($2, 1, length($2)-1) }')
 rm -rf ./secrets.txt
@@ -24,15 +28,14 @@ rm -rf ./secrets.txt
 VNET_ID=$(az network vnet show --resource-group ${ClientRG} --name ${ClientVnet} --query id -o tsv)
 SUBNET_ID=$(az network vnet subnet show --resource-group ${ClientRG} --vnet-name ${ClientVnet} --name ${AKSSubnetName} --query id -o tsv)
 # Add SP as Contributor on vNet
-az role assignment create --assignee ${AppID} --scope ${VNET_ID} --role Contributor
+#az role assignment create --assignee ${AppID} --scope ${VNET_ID} --role Contributor
 
 az aks create \
     --name "${ClientRG}k8s${ClusterType}" \
     --resource-group ${ClientRG} \
-    --service-principal ${AppID} \
-    --client-secret ${AppPassword} \
     --node-resource-group "${ClientRG}k8s${ClusterType}" \
-    --location ${Location}
+    --location ${Location} \
+    --kubernetes-version "1.15.5" \
     --nodepool-name permpool \
     --node-count 2 \
     --node-vm-size Standard_E8s_v3 \
@@ -47,7 +50,7 @@ az aks create \
     --vm-set-type VirtualMachineScaleSets \
     --load-balancer-sku standard \
     --enable-addons monitoring \
-    --workspace-resource-id ${LogAnalyticsWorkspaceID}
+    --workspace-resource-id ${LogAnalyticsWorkspaceID} \
     --generate-ssh-keys
 
 az aks nodepool add \
