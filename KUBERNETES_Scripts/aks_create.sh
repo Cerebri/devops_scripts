@@ -12,13 +12,14 @@ LogAnalyticsWorkspaceID=""
 ClusterType="Development"
 
 # Install aks-preview
-az extension add --name aks-preview
-az extension update --name aks-preview
-az feature register --namespace Microsoft.ContainerService --name AKSPrivateLinkPreview
+#az extension add --name aks-preview
+#az extension update --name aks-preview
+#az feature register --namespace Microsoft.ContainerService --name AKSPrivateLinkPreview
+#az feature register --namespace Microsoft.ContainerService --name LowPriorityPoolPreview
 # Wait for it to be registered
-az provider register --namespace Microsoft.ContainerService
-az provider register --namespace Microsoft.Network
-az provider register --namespace Microsoft.Compute
+#az provider register --namespace Microsoft.ContainerService
+#az provider register --namespace Microsoft.Network
+#az provider register --namespace Microsoft.Compute
 # Create Service Principal for this aks
 az ad sp create-for-rbac --skip-assignment --name "k8s${ClientRG}${ClusterType}" > secrets.txt
 AppID=$(cat secrets.txt | grep appId | awk '{ print substr($2, 1, length($2)-1) }')
@@ -35,6 +36,10 @@ az aks create \
     --resource-group ${ClientRG} \
     --node-resource-group "${ClientRG}k8s${ClusterType}" \
     --location ${Location} \
+    --aad-server-app-id $serverApplicationId \
+    --aad-server-app-secret $serverApplicationSecret \
+    --aad-client-app-id $clientApplicationId \
+    --aad-tenant-id $tenantId
     --kubernetes-version "1.15.5" \
     --nodepool-name permpool \
     --node-count 2 \
@@ -55,7 +60,7 @@ az aks create \
 
 az aks nodepool add \
     --resource-group ${ClientRG} \
-    --cluster-name myAKSCluster \
+    --cluster-name "${ClientRG}k8s${ClusterType}" \
     --name lowpool \
     --node-count 3 \
     --node-vm-size Standard_E4s_v3 \
