@@ -11,12 +11,12 @@
 # 6. Use below procedure to re-create the original VM which will also try booting it up
 # 7. If it is still broken, rinse and repeat
 
-$resourceGroupName = "TrustFord"
-$destinationVhd = "https://cerebritrustford.blob.core.windows.net/vhds/osDiskDatabase.vhd"
-$virtualNetworkName = "trustfordVnet"
-$locationName = "westeurope"
+$resourceGroupName = "${}"
+$destinationVhd = "https://${}.blob.core.windows.net/vhds/osDiskDatabase.vhd"
+$virtualNetworkName = "${}"
+$locationName = "${}"
 $virtualNetwork = Get-AzureRmVirtualNetwork -ResourceGroupName $resourceGroupName -Name $virtualNetworkName
-$networkInterface = Get-AzureRmNetworkInterface -ResourceGroupName $resourceGroupName -Name "database-nic"
+$networkInterface = Get-AzureRmNetworkInterface -ResourceGroupName $resourceGroupName -Name "${}"
 Get-AzureRmVMSize $locationName | Out-GridView
 $vmConfig = New-AzureRmVMConfig -VMName "database" -VMSize "Standard_E16s_v3"
 $vmConfig = Set-AzureRmVMOSDisk -VM $vmConfig -Name "databaseOSDisk" -VhdUri $destinationVhd -CreateOption Attach -Linux
