@@ -1,52 +1,19 @@
 #!/usr/bin/env bash
+set -x
 
-# Master Client Resource Group and Network, location
-ClientRG= #######
-Location="westeurope"
-ClientVnet="$(echo "${ClientRG}" | tr '[:upper:]' '[:lower:]')Vnet"
-# Pre-create this subnet in the vNet, at least /21
-AKSSubnetName=""
-# Log Analytics Workspace ID
-LogAnalyticsWorkspaceID=""
-# Cluster Type, i.e. Development, LaunchPipe or Launch
-ClusterType="Development"
-
-# Install aks-preview
-#az extension add --name aks-preview
-#az extension update --name aks-preview
-#az feature register --namespace Microsoft.ContainerService --name AKSPrivateLinkPreview
-#az feature register --namespace Microsoft.ContainerService --name LowPriorityPoolPreview
-# Wait for it to be registered
-#az provider register --namespace Microsoft.ContainerService
-#az provider register --namespace Microsoft.Network
-#az provider register --namespace Microsoft.Compute
-# Create Service Principal for this aks
-az ad sp create-for-rbac --skip-assignment --name "k8s${ClientRG}${ClusterType}" > secrets.txt
-AppID=$(cat secrets.txt | grep appId | awk '{ print substr($2, 1, length($2)-1) }')
-AppPassword=$(cat secrets.txt | grep password | awk '{ print substr($2, 1, length($2)-1) }')
-rm -rf ./secrets.txt
-# Get vNet and Subnet
-VNET_ID=$(az network vnet show --resource-group ${ClientRG} --name ${ClientVnet} --query id -o tsv)
-SUBNET_ID=$(az network vnet subnet show --resource-group ${ClientRG} --vnet-name ${ClientVnet} --name ${AKSSubnetName} --query id -o tsv)
-# Add SP as Contributor on vNet
-#az role assignment create --assignee ${AppID} --scope ${VNET_ID} --role Contributor
+source $1
 
 az aks create \
     --name "${ClientRG}k8s${ClusterType}" \
     --resource-group ${ClientRG} \
     --node-resource-group "${ClientRG}k8s${ClusterType}" \
     --location ${Location} \
-    --aad-server-app-id $serverApplicationId \
-    --aad-server-app-secret $serverApplicationSecret \
-    --aad-client-app-id $clientApplicationId \
-    --aad-tenant-id $tenantId
     --kubernetes-version "1.15.5" \
     --nodepool-name permpool \
     --node-count 2 \
     --node-vm-size Standard_E8s_v3 \
     --max-pods 50 \
     --network-plugin azure \
-    --enable-private-cluster \
     --admin-username kubeuser \
     --vnet-subnet-id ${SUBNET_ID} \
     --docker-bridge-address 172.17.0.1/16 \
