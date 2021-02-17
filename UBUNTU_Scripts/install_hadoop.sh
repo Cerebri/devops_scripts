@@ -3,18 +3,19 @@
 apt-get update
 apt-get install -y --no-install-recommends apt-utils openjdk-8-jre-headless ca-certificates-java procps
 apt-get update
-apt-get install -y --no-install-recommends gpg net-tools curl dirmngr
+apt-get install -y --no-install-recommends gpg net-tools curl dirmngr unzip
 rm -rf /var/lib/apt/lists/*
 
 
 HADOOP_VERSION=3.3.0
 HADOOP_PREFIX=/opt/hadoop-${HADOOP_VERSION}
+HADOOP_URL="https://www.apache.org/dist/hadoop/common/hadoop-${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz"
 
 # Setup env
 #cat <<EOF > ~/.hadooprc
 #JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/
 #HADOOP_VERSION=${HADOOP_VERSION}
-#HADOOP_URL="https://www.apache.org/dist/hadoop/common/hadoop-${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz"
+
 #HADOOP_PREFIX=${HADOOP_PREFIX}
 #HADOOP_HOME=/opt/hadoop-${HADOOP_VERSION}
 #HADOOP_CLASSPATH=$HADOOP_CLASSPATH:/opt/hadoop-${HADOOP_VERSION}/share/hadoop/tools/lib/*
@@ -26,23 +27,27 @@ HADOOP_PREFIX=/opt/hadoop-${HADOOP_VERSION}
 #. ~/.hadooprc
 #echo ". ~/.hadooprc" >> ~/.bashrc
 
-curl -fSL "$HADOOP_URL" -o /tmp/hadoop.tar.gz
-curl -fSL "$HADOOP_URL.asc" -o /tmp/hadoop.tar.gz.asc
-curl -fSL https://www.apache.org/dist/hadoop/common/KEYS -o KEYS
-gpg --import KEYS
-gpg --verify /tmp/hadoop.tar.gz.asc
-tar -xvf /tmp/hadoop.tar.gz -C /opt/ --exclude=hadoop-${HADOOP_VERSION}/share/doc
-rm /tmp/hadoop.tar.gz*
+if [ ! -d "${HADOOP_PREFIX}" ]
+then
+  curl -fSL "$HADOOP_URL" -o /tmp/hadoop.tar.gz
+  curl -fSL "$HADOOP_URL.asc" -o /tmp/hadoop.tar.gz.asc
+  curl -fSL https://www.apache.org/dist/hadoop/common/KEYS -o KEYS
+  gpg --import KEYS
+  gpg --verify /tmp/hadoop.tar.gz.asc
+  tar -xvf /tmp/hadoop.tar.gz -C /opt/ --exclude=hadoop-${HADOOP_VERSION}/share/doc
+  rm /tmp/hadoop.tar.gz*
+  ln -sf /opt/hadoop-${HADOOP_VERSION}/etc/hadoop /etc/hadoop
+  #RUN cp /etc/hadoop/mapred-site.xml.template /etc/hadoop/mapred-site.xml
+  mkdir -p /opt/hadoop-${HADOOP_VERSION}/logs
+  mkdir -p /hadoop-data
 
-ln -sf /opt/hadoop-${HADOOP_VERSION}/etc/hadoop /etc/hadoop
-#RUN cp /etc/hadoop/mapred-site.xml.template /etc/hadoop/mapred-site.xml
-mkdir -p /opt/hadoop-${HADOOP_VERSION}/logs
-mkdir -p /hadoop-data
+  # Set up $JAVA_HOME for Hadoop.
+  # This locates the JAVA_HOME and updates it in Hadoop's environment file.
+  export JAVA_HOME=$(readlink -f /usr/bin/java | sed "s:bin/java::")
+  sed -i "s@# export JAVA_HOME=.*@export JAVA_HOME=${JAVA_HOME}@g" ${HADOOP_PREFIX}/etc/hadoop/hadoop-env.sh
 
-# Set up $JAVA_HOME for Hadoop.
-# This locates the JAVA_HOME and updates it in Hadoop's environment file.
-export JAVA_HOME=$(readlink -f /usr/bin/java | sed "s:bin/java::")
-sudo sed -i "s@# export JAVA_HOME=.*@export JAVA_HOME=${JAVA_HOME}@g" ${HADOOP_PREFIX}/etc/hadoop/hadoop-env.sh
+fi
+
 
 # Turn on Hadoop-AWS optional tools.
 # We need this to be able to fetch s3://, s3a:// and s3n:// URIs.
