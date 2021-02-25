@@ -138,15 +138,15 @@ cat <<EOF > /etc/hadoop/core-site.xml
   </property>
   <property>
     <name>fs.oci.client.auth.tenantId</name>
-    <value>ocid1.tenancy.oc1..aaaaaaaabqip5wn7mcapjuv5jpfzce54mbzc2sarjjyyu4zc2cyiznzxskgq</value>
+    <value>ocid1.tenancy.oc1..######</value>
   </property>
   <property>
     <name>fs.oci.client.auth.userId</name>
-    <value>ocid1.user.oc1..aaaaaaaa43tqyqahmg7uqxlformloir2oj36dmotz33fvlvbnaq5flp5s3na</value>
+    <value>ocid1.user.oc1..############</value>
   </property>
   <property>
     <name>fs.oci.client.auth.fingerprint</name>
-    <value>30:72:12:16:a7:c2:ef:78:0f:89:10:8d:d6:c8:d7:54</value>
+    <value>###########</value>
   </property>
   <property>
     <name>fs.oci.client.auth.pemfilepath</name>
