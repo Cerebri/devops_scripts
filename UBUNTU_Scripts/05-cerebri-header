@@ -1,0 +1,20 @@
+#!/bin/sh
+# /etc/update-motd.d/05-cerebri-header
+
+printf "\n"
+printf "This is the JumpBox for the Cerebri k8s Clusters.\n"
+printf "\n"
+printf "Please do NOT run long-running jobs from this server which relies on one of the following:\n"
+printf "  - An SSH connection to this server.\n"
+printf "  - A kubectl connection to a k8s Pod.\n"
+printf "These connections are NOT guaranteed to be up and stable over long periods of time.\n"
+printf "\n"
+echo "$(tput -T xterm setaf 1)YOU HAVE BEEN WARNED !!!$(tput -T xterm sgr0)"
+printf "\n"
+
+FILE=/usr/games/fortune
+if [ -f "$FILE" ]; then
+    /usr/games/fortune
+fi
+
+
